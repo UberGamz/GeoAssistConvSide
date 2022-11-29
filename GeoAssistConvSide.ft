@@ -1,0 +1,10 @@
+﻿APPLICATION "_\geoassistconvside_"
+FUNC_DLL "chooks\GeoAssistConvSide.dll"
+RES_DLL "SAME"
+dnRES_NAME "_GeoAssistConvSide.GeoAssistConvSide"
+CATEGORY "Automation"
+FUNCTION NET "GeoAssistConvSideRun"
+dnSPNG "Run16"
+dnLPNG"Run32"
+dnTIP "RunTip"
+END_FUNCTION
