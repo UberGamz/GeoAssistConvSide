@@ -5,18 +5,9 @@ using Mastercam.App.Types;
 using Mastercam.GeometryUtility;
 using Mastercam.Support;
 using Mastercam.Database.Interop;
-using Mastercam.Surfaces;
 using Mastercam.Curves;
 using Mastercam.Math;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Mastercam.Operations.Types;
-using Microsoft.VisualBasic.Devices;
-using System.Windows.Forms;
-using System.Threading;
-using System.Runtime.InteropServices;
-using System;
-using Mastercam.Support.Events;
 
 namespace _GeoAssistConvSide
 {
