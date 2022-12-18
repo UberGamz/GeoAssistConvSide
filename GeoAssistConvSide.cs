@@ -31,6 +31,10 @@ namespace _GeoAssistConvSide
                 int cleanOut = 12;
                 int roughSurf = 138;
                 int finishSurf = 139;
+                var selectedCutChain = ChainManager.GetMultipleChains("Select Geometry");
+                DialogManager.AskForNumber("Enter Depth", ref depth);
+                DialogManager.AskForAngle("Enter Rough Angle", ref roughAngle);
+                DialogManager.AskForAngle("Enter Finish Angle", ref finishAngle);
                 SurfaceDraftParams roughSurfaceDraftParams = new SurfaceDraftParams
                 {
                     draftMethod = SurfaceDraftParams.DraftMethod.Length,
@@ -47,12 +51,9 @@ namespace _GeoAssistConvSide
                     angle = Mastercam.Math.VectorManager.RadiansToDegrees(finishAngle),
                     draftDirection = SurfaceDraftParams.DraftDirection.Defined
                 };
-                var selectedCutChain = ChainManager.GetMultipleChains("Select Geometry");
-                DialogManager.AskForNumber("Enter Depth", ref depth);
-                DialogManager.AskForAngle("Enter Rough Angle", ref roughAngle);
-                DialogManager.AskForAngle("Enter Finish Angle", ref finishAngle);
                 foreach (var chain in selectedCutChain)
                 {
+                    chain.Direction = ChainDirectionType.Clockwise;
                     var chainGeo = ChainManager.GetGeometryInChain(chain);
                     foreach (var entity in chainGeo)
                     {
@@ -65,7 +66,8 @@ namespace _GeoAssistConvSide
                 }
                 foreach (var chain in selectedCutChain)
                 {
-                    var mainGeoSide1 = chain.OffsetChain2D(OffsetSideType.Right, .002, OffsetRollCornerType.None, .5, false, .005, false);
+                    chain.Direction = ChainDirectionType.Clockwise;
+                    var mainGeoSide1 = chain.OffsetChain2D(OffsetSideType.Left, .002, OffsetRollCornerType.None, .5, false, .005, false);
                     var mainGeoResult = SearchManager.GetResultGeometry();
                     foreach (var entity in mainGeoResult)
                     {
@@ -130,7 +132,7 @@ namespace _GeoAssistConvSide
                     GraphicsManager.ClearColors(new GroupSelectionMask(true));
                     SelectionManager.UnselectAllGeometry();
                     ///////////////////////////////
-                    var cleanOutSide1 = chain.OffsetChain2D(OffsetSideType.Right, .0025, OffsetRollCornerType.None, .5, false, .005, false);
+                    var cleanOutSide1 = chain.OffsetChain2D(OffsetSideType.Left, .0025, OffsetRollCornerType.None, .5, false, .005, false);
                     var cleanOutResult = SearchManager.GetResultGeometry();
                     foreach (var entity in cleanOutResult)
                     {
@@ -174,7 +176,7 @@ namespace _GeoAssistConvSide
                     GraphicsManager.ClearColors(new GroupSelectionMask(true));
                     SelectionManager.UnselectAllGeometry();
                     ////////////////////////////////
-                    var finishSurfSide1 = chain.OffsetChain2D(OffsetSideType.Right, .0005, OffsetRollCornerType.None, .5, false, .005, false);
+                    var finishSurfSide1 = chain.OffsetChain2D(OffsetSideType.Left, .0005, OffsetRollCornerType.None, .5, false, .005, false);
                     var finishSurfResult = SearchManager.GetResultGeometry();
                     foreach (var entity in finishSurfResult)
                     {
