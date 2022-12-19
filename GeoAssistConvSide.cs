@@ -32,9 +32,25 @@ namespace _GeoAssistConvSide
                 int roughSurf = 138;
                 int finishSurf = 139;
                 var selectedCutChain = ChainManager.GetMultipleChains("Select Geometry");
-                DialogManager.AskForNumber("Enter Depth", ref depth);
-                DialogManager.AskForAngle("Enter Rough Angle", ref roughAngle);
-                DialogManager.AskForAngle("Enter Finish Angle", ref finishAngle);
+                if (selectedCutChain == null)
+                {
+                    return;
+                }
+                var depthDialog = DialogManager.AskForNumber("Enter Depth", ref depth);
+                if (depthDialog == 0)
+                {
+                    return;
+                }
+                var roughAngleDialog = DialogManager.AskForAngle("Enter Rough Angle", ref roughAngle);
+                if (roughAngleDialog == 0)
+                {
+                    return;
+                }
+                var finishAngleDialog = DialogManager.AskForAngle("Enter Finish Angle", ref finishAngle);
+                if (finishAngleDialog == 0)
+                {
+                    return;
+                }
                 SurfaceDraftParams roughSurfaceDraftParams = new SurfaceDraftParams
                 {
                     draftMethod = SurfaceDraftParams.DraftMethod.Length,
